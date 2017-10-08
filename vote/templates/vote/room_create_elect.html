@@ -1,0 +1,22 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+  <h2>Room Create Elect</h2>
+  <form action="" method="POST">{% csrf_token %}
+    {{ form.choiceNum.errors }}
+    {{ form.choiceNum.label }}<br />
+    {{ form.choiceNum }}
+    <button type="submit">Enter</button>
+  </form>
+  <form action="" method="POST">{% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+      <div class="fieldWrapper">
+          {{ form.EchoiceName.errors }}
+          {{ form.EchoiceName.label }}<br />
+          {{ form.EchoiceName }}
+      </div>
+    {% endfor %}
+    <button class="submitButton" type="submit">Enter</button>
+  </form>
+{% endblock %}

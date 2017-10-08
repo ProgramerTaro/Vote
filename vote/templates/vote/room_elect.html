@@ -1,0 +1,50 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+  <h2>Room Info</h2>
+      <div class="roomInfo">
+        <dl>
+          <dt>部屋名</dt><dd>　{{ room.roomName }}</dd>
+        </dl>
+        <dl>
+          <dt>部屋作成者</dt><dd>　{{ room.creatorId }}</dd>
+        </dl>
+        <dl>
+          <dt>投票形式</dt><dd>　{{ room.typeId }}</dd>
+        </dl>
+        <dl>
+          <dt>作成日</dt><dd>　{{ room.roomBirth }}</dd>
+        </dl>
+        <dl>
+          <dt>投票期限</dt><dd>　{{ room.roomLimit }}</dd>
+        </dl>
+        <dl>
+          <dt>部屋説明文</dt>
+        </dl>
+        <dl>
+          <dd>{{ room.roomInfo }}</dd>
+        </dl>
+      </div><br />
+      <!-- 投票期限を過ぎているか判断 -->
+      {% if result %}
+        <!-- 投票フォームを表示 -->
+        <h3>投票フォーム</h3>
+        <form action="{% url 'vote_elect' %}" method="post">{% csrf_token %}
+          {% for choice in choiceElect %}
+            <input type="radio" name="choice" value="{{ choice.EchoiceId }}" />　{{ choice.EchoiceName }}<br />
+          {% endfor %}
+          <input type="hidden" name="roomId" value="{{ room.roomId }}" />
+          <button type="submit" class="submitButton">投票</button>
+        </form>
+      {% else %}
+        <!-- 投票結果を表示　-->
+        <h3>投票結果</h3>
+        {% for choice in choiceElect %}
+          <div class="roomInfo">
+            <dl>
+              <dt>{{ choice.EchoiceName }}</dt><dd>　{{ choice.voteNum }}票</dd>
+            </dl>
+          </div>
+        {% endfor %}
+      {% endif %}
+{% endblock %}

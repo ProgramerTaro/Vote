@@ -1,0 +1,23 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+  <h2>Room Enter</h2>
+    {% for room in rooms %}
+        <div class="eachRoom">
+          部屋名：{{ room.roomName }}<br />
+          作成日：{{ room.roomBirth }}<br />
+          投票期限：{{ room.roomLimit }}
+        </div>
+        <form action="{% url 'room_enter' %}" method="POST">{% csrf_token %}
+          <div class="fieldWrapper">
+              {{ form.room_password.errors }}
+              {{ form.room_password.label }}<br />
+              {{ form.room_password }}
+              <input type="hidden" name="roomId" value="{{room.roomId}}" />
+              <button type="submit">Enter</button>
+          </div>
+        </form>
+        <br />
+        <hr>
+    {% endfor %}
+{% endblock %}

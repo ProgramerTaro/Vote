@@ -1,0 +1,23 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+
+{% if form.errors  %}
+  <div class="alert alert-danger" role="alert">
+    <p><strong>Please try again.</strong></p>
+  </div>
+{% endif %}
+
+    <h2 class="panel-title text-center">Sign in</h2>
+    <form action="{% url 'login' %}" method="post" role="form">
+      {% csrf_token %}
+      <div class="input-group" style="margin-bottom:10px">
+        <input id="id_username" name="username" type="text" value="" maxlength="256" placeholder="Username" aria-describedby="sizing-addon1" autofocus required/>
+      </div>
+      <div class="input-group" style="margin-bottom:10px">
+        <input id="id_password" name="password" type="password" value="" maxlength="256" placeholder="Pasword" aria-describedby="sizing-addon1" required/>
+      </div>
+      <button type="submit" style="margin-bottom:-20px"><i class="fa fa-sign-in">Enter</i></button>
+      <input name="next" type="hidden" value="{% url 'home' %}"/>
+    </form>
+{% endblock %}
