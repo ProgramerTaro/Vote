@@ -28,6 +28,7 @@ class Room(models.Model):
         return self.roomName
 
 class voter(models.Model):
+    voteId = models.AutoField('投票番号', primary_key=True)
     voterId = models.ForeignKey('auth.User')
     roomId = models.ForeignKey(Room, on_delete=models.CASCADE)
 
