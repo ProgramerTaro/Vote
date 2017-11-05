@@ -41,6 +41,14 @@ class ElectForm(forms.ModelForm):
         model = elect
         fields = ('EchoiceName',)
 
+#後期追記ここから
+#投票選択肢作成(選出形式)フォーム
+class GradeForm(forms.ModelForm):
+    class Meta:
+        model = gradeFive
+        fields = ('GchoiceName',)
+#後期追記ここまで
+
 #投票対象数フォーム
 class ChoiceNumForm(forms.Form):
     choiceNum = forms.IntegerField(label='投票対象数')
@@ -48,3 +56,9 @@ class ChoiceNumForm(forms.Form):
 #投票部屋入室フォーム
 class EnterForm(forms.Form):
     room_password = forms.CharField(max_length=200, label='合言葉')
+
+#後期追記ここから
+#投票部屋検索フォーム
+class SearchForm(forms.Form):
+    room_name = forms.CharField(max_length=200, label='部屋名')
+#後期追記ここまで

@@ -58,6 +58,21 @@ class gradeFive(models.Model):
     four = models.IntegerField('評点4の票数', default=0)
     five = models.IntegerField('評点5の票数', default=0)
 
+    #後期追記ここから
+    #票を増やす
+    def addVote(self, num):
+        if (num == 1):
+            self.one += 1
+        elif (num == 2):
+            self.two += 1
+        elif (num == 3):
+            self.three += 1
+        elif (num == 4):
+            self.four += 1
+        elif (num == 5):
+            self.five += 1
+    #後期追記ここまで
+
     #投票された評点の平均値を求める
     def get_average(self):
         sum = self.one + self.two + self.three + self.four + self.five

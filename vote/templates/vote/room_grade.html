@@ -1,6 +1,7 @@
 {% extends 'vote/base.html' %}
 
 {% block content %}
+  <!-- 後期新規作成 -->
   <h2>投票部屋情報</h2>
       <div class="roomInfo">
         <dl>
@@ -29,9 +30,16 @@
       {% if result %}
         <!-- 投票フォームを表示 -->
         <h3>投票フォーム</h3>
-        <form action="{% url 'vote_elect' %}" method="post">{% csrf_token %}
-          {% for choice in choiceElect %}
-            <input type="radio" name="choice" value="{{ choice.EchoiceId }}" />　{{ choice.EchoiceName }}<br />
+        <form action="{% url 'vote_grade' %}" method="post">{% csrf_token %}
+          {% for choice in choiceGrade %}
+            {{ choice.GchoiceName }}：
+            <label>1</label><input type="radio" name="{{ choice.GchoiceName }}" value="1" />
+            <label>2</label><input type="radio" name="{{ choice.GchoiceName }}" value="2" />
+            <label>3</label><input type="radio" name="{{ choice.GchoiceName }}" value="3" />
+            <label>4</label><input type="radio" name="{{ choice.GchoiceName }}" value="4" />
+            <label>5</label><input type="radio" name="{{ choice.GchoiceName }}" value="5" />
+            <br />
+            <br />
           {% endfor %}
           <input type="hidden" name="roomId" value="{{ room.roomId }}" />
           <button type="submit" class="submitButton">投票</button>
@@ -39,12 +47,14 @@
       {% else %}
         <!-- 投票結果を表示　-->
         <h3>投票結果</h3>
+        <!-- 作成途中
         {% for choice in choiceElect %}
           <div class="roomInfo">
             <dl>
-              <dt>{{ choice.EchoiceName }}</dt><dd>　{{ choice.voteNum }}票</dd>
+              <dt>{{ choice.GchoiceName }}</dt><dd>　{{ choice.voteNum }}票</dd>
             </dl>
           </div>
         {% endfor %}
+      -->
       {% endif %}
 {% endblock %}

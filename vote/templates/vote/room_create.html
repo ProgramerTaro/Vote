@@ -1,7 +1,7 @@
 {% extends 'vote/base.html' %}
 
 {% block content %}
-  <h2>Room Create</h2>
+  <h2>投票部屋作成</h2>
   <form action="" method="POST">{% csrf_token %}
       {% for field in form %}
         <div class="fieldWrapper">

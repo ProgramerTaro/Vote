@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="{% static 'css/vote.css' %}" type="text/css" />
 <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+<!-- 後期追記ここから -->
+<script type="text/javascript" src="{% static 'js/check.js' %}"></script>
+<!-- 後期追記ここまで -->
 <title>電子投票ONLINE</title>
 </head>
 <body>
@@ -35,7 +38,9 @@
         <li><a href="{% url 'room_create' %}">CREATE</a></li>
         <li><a href="{% url 'room_list' %}">ENTER</a></li>
         <li><a href="{% url 'logout' %}">Sign out</a></li>
-        <li><a href="#">PROFILE</a></li>
+        <!-- 後期追記ここから -->
+        <li><a href="{% url 'profile' %}">PROFILE</a></li>
+        <!-- 後期追記ここまで -->
       {% else %}
         <li><a href="{% url 'register' %}">Sign up</a></li>
         <li><a href="{% url 'login' %}">Sign in</a></li>

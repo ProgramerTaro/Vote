@@ -1,19 +1,17 @@
 {% extends 'vote/base.html' %}
 
 {% block content %}
-  <!-- 後期追記ここから -->
-  <h2>検索フォーム</h2>
-  <form action="" method="POST">{% csrf_token %}
-    <div class="fieldWrapper">
-      {{ sform.room_name.errors }}
-      {{ sform.room_name.label }}<br />
-      {{ sform.room_name }}
-      <button type="submit">検索</button>
-    </div>
+  <!-- 後期新規作成 -->
+  <h2>会員情報</h2>
+  ユーザー名：{{ user.username }}<br />
+  <br />
+  <!-- 作成途中
+  <form action="" method="POST" onsubmit="return check()">{% csrf_token %}
+    <button type="submit">退会</button>
   </form>
   <br />
-  <!-- 後期追記ここまで -->
-  <h2>投票部屋一覧</h2>
+  -->
+  <h2>作成した投票部屋一覧</h2>
   {% for room in rooms %}
       <div class="eachRoom">
         部屋名：{{ room.roomName }}<br />
