@@ -47,14 +47,18 @@
       {% else %}
         <!-- 投票結果を表示　-->
         <h3>投票結果</h3>
-        <!-- 作成途中
-        {% for choice in choiceElect %}
-          <div class="roomInfo">
-            <dl>
-              <dt>{{ choice.GchoiceName }}</dt><dd>　{{ choice.voteNum }}票</dd>
-            </dl>
-          </div>
-        {% endfor %}
-      -->
+        <br />
+        <div class="roomInfo">
+          <table>
+            <thead>
+              <tr><th></th><th>評定平均</th></tr>
+            </thead>
+            {% for choice in choiceGrade %}
+            <tr>
+              <th>{{ choice.GchoiceName }}</th><td>{{ choice.get_average }}点</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
       {% endif %}
 {% endblock %}

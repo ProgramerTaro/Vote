@@ -39,12 +39,17 @@
       {% else %}
         <!-- 投票結果を表示　-->
         <h3>投票結果</h3>
-        {% for choice in choiceElect %}
-          <div class="roomInfo">
-            <dl>
-              <dt>{{ choice.EchoiceName }}</dt><dd>　{{ choice.voteNum }}票</dd>
-            </dl>
-          </div>
-        {% endfor %}
+        <br />
+        <div class="roomInfo">
+          <table>
+            <thead>
+              <tr><th></th><th>票数</th></tr>
+            </thead>
+            {% for choice in choiceElect %}
+            <tr>
+              <th>{{ choice.EchoiceName }}</th><td>{{ choice.voteNum }}票</td>
+            </tr>
+            {% endfor %}
+          </table>
       {% endif %}
 {% endblock %}

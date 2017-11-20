@@ -50,13 +50,14 @@ def room_list(request):
         if sform.is_valid():
             #フォームから入力された部屋名を取得
             room_name = sform.cleaned_data['room_name']
-            #入力された部屋名を元に投票部屋をLIKE検索
-            rooms = Room.objects.filter(roomName__contains=room_name)
+            #入力された部屋名を元に投票部屋をLIKE検索(作成日降順)
+            rooms = Room.objects.order_by('-roomBirth').filter(roomName__contains=room_name)
     #後期追記ここまで
     else:
         sform = SearchForm()
-        #全ての投票部屋を取得
-        rooms = Room.objects.all()
+        #全ての投票部屋を取得(作成日降順)
+        rooms = Room.objects.order_by('-roomBirth').all()
+        # rooms.objects.order_by('roomBirth')
     #入室フォームの生成
     form = EnterForm()
     context = {'rooms': rooms, 'form': form, 'sform':sform}
@@ -78,12 +79,14 @@ def room_enter(request):
             if room.password == form.cleaned_data['room_password']:
                 #投票形式に応じたテンプレートへリダイレクト
 
+                #投票期限が過ぎているかを真偽値で取得
+                result = room.judge_limit()
+
                 #選出形式
                 if str(room.typeId) == '選出形式':
                     #投票対象を取得
                     choiceElect = elect.objects.filter(roomId=roomId)
-                    #投票期限が過ぎているかを真偽値で取得
-                    result = room.judge_limit()
+                    # result = room.judge_limit()
                     context = {'room': room, 'choiceElect': choiceElect, 'result': result}
                     return render(request, 'vote/room_elect.html', context)
 
@@ -92,8 +95,8 @@ def room_enter(request):
                 elif str(room.typeId) == '評点形式':
                     #投票対象を取得
                     choiceGrade = gradeFive.objects.filter(roomId=roomId)
-                    #投票期限が過ぎているかを真偽値で取得
-                    result = room.judge_limit()
+                    # result = room.judge_limit()
+
                     context = {'room': room, 'choiceGrade': choiceGrade, 'result': result}
                     return render(request, 'vote/room_grade.html', context)
                 #後期追記ここまで
@@ -228,10 +231,9 @@ def vote_elect(request):
 #投票処理ビュー
 def vote_grade(request):
     #投票部屋、投票者、投票対象を取得
-    #choiceId = int(request.POST['choice'])
     room = Room.objects.get(roomId=int(request.POST['roomId']))
     user = User.objects.get(id=request.user.id)
-    choiceGrade = gradeFive.objects.filter(roomId=roomId)
+    choiceGrade = gradeFive.objects.filter(roomId=room.roomId)
 
     #投票済みのユーザーであるかを判断
     if voter.objects.filter(voterId=user.id, roomId=room.roomId):
@@ -244,7 +246,7 @@ def vote_grade(request):
 
     #票を増やす
     for choice in choiceGrade:
-        choiceNum = int(request.POST['GchoiceName'])
+        choiceNum = int(request.POST[choice.GchoiceName])
         choice.addVote(choiceNum)
         choice.save()
     context = {'result': '投票が完了しました。'}
