@@ -14,15 +14,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='voter',
-            name='id',
-            field=models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
-            preserve_default=False,
-        ),
-        migrations.AlterField(
-            model_name='voter',
-            name='voterId',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
-        ),
+        # migrations.AddField(
+        #     model_name='voter',
+        #     name='id',
+        #     field=models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
+        #     preserve_default=False,
+        # ),
+        # migrations.AlterField(
+        #     model_name='voter',
+        #     name='voterId',
+        #     field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+        # ),
     ]
