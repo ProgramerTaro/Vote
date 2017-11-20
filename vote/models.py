@@ -83,3 +83,6 @@ class gradeFive(models.Model):
 
     def __str__(self):
         return self.GchoiceName
+
+# class debug(models.Model):
+#     test = models.IntegerField('デバッグ用', default=0)
