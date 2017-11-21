@@ -85,7 +85,7 @@ def room_enter(request):
                 #選出形式
                 if str(room.typeId) == '選出形式':
                     #投票対象を取得
-                    choiceElect = elect.objects.filter(roomId=roomId)
+                    choiceElect = elect.objects.filter(roomId=roomId).reverse()
                     # result = room.judge_limit()
                     context = {'room': room, 'choiceElect': choiceElect, 'result': result}
                     return render(request, 'vote/room_elect.html', context)
@@ -94,7 +94,7 @@ def room_enter(request):
                 #評点形式
                 elif str(room.typeId) == '評点形式':
                     #投票対象を取得
-                    choiceGrade = gradeFive.objects.filter(roomId=roomId)
+                    choiceGrade = gradeFive.objects.filter(roomId=roomId).reverse()
                     # result = room.judge_limit()
 
                     context = {'room': room, 'choiceGrade': choiceGrade, 'result': result}
